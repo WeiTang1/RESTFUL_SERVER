@@ -29,9 +29,16 @@ exports.getUser = function(req,res){
 	});
 };
 exports.update_a_task = function(req, res) {
-    User.findOneAndUpdate({'firstName': req.params.firstName}, req.body, {new: true}, function(err, task) {
+    User.findOneAndUpdate({'_id': req.params.id}, req.body, {new: true}, function(err, task) {
         if (err)
             res.send(err);
         res.json(task);
     });
+};
+exports.delete = function(req,res){
+	User.findOneAndRemove({'firstName':req.params.firstName},function(err,task){
+		if(err)
+			res.send(err);
+		res.json(task);
+	});
 };
